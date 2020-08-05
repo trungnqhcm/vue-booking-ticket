@@ -1,0 +1,10 @@
+============ Buổi 1 =============
+* Component
+* Data-binding
+    - Oneway: text, attribute, event
+    - Two-way: v-model
+
+============ Buổi 2 =============
+* Computed: cache lại dữ liệu. Nếu dữ k thay đổi thì computed k chạy
+* Methods: k cache dữ liệu
+* Watch: theo dõi dữ liệu
