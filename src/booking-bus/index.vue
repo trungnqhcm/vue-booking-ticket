@@ -2,31 +2,43 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
-        <ol class="seats">
-          <Seats :seatsList="seatsList" @eventBookTicket="eventUdapte($event)" />
-        </ol>
+        <div class="grid-container">
+          <Seat
+            class="grid-item"
+            v-for="seat in seatsList"
+            :key="seat.SoGhe"
+            :seat="seat"
+            @eventBookTicket="bookTicket($event)"
+          />
+        </div>
       </div>
       <div class="col-sm-6">
-        <h3>Danh sach dat ghe</h3>
-        <Booked v-bind="bookedList" @eventBookTicket="eventUdapte($event)" />
+        <ol class="bookedSeats">
+          <BookedSeat
+            v-for="seat in bookedList"
+            :key="seat.SoGhe"
+            :seat="seat"
+            @eventUnBookTicket="unBookTicket($event)"
+          />
+        </ol>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Seats from "./Seats";
-import Booked from "./Booked";
+import Seat from "./Seat";
+import BookedSeat from "./BookedSeat";
 export default {
   components: {
-    Seats,
-    Booked
+    Seat,
+    BookedSeat
   },
-  data: function() {
+  data() {
     return {
-      bookedList: [],
+      // bookedList: [],
       seatsList: [
-        { SoGhe: 1, TenGhe: "số 1", Gia: 100, TrangThai: false },
+        { SoGhe: 1, TenGhe: "số 1", Gia: 100, TrangThai: true },
         { SoGhe: 2, TenGhe: "số 2", Gia: 100, TrangThai: false },
         { SoGhe: 3, TenGhe: "số 3", Gia: 100, TrangThai: false },
         { SoGhe: 4, TenGhe: "số 4", Gia: 100, TrangThai: false },
@@ -65,9 +77,19 @@ export default {
     };
   },
   methods: {
-    eventUdapte(value) {
-      this.seatsList = value;
-      console.log("eventUdapte -> seatsList", this.seatsList);
+    bookTicket(value) {
+      //this.$set(this.seatsList, value.SoGhe, value);
+      this.seatsList[value.SoGhe - 1].TrangThai = true;
+    },
+    unBookTicket(value) {
+      this.seatsList[value.SoGhe - 1].TrangThai = false;
+    }
+  },
+  computed: {
+    bookedList: function() {
+      return this.seatsList.filter(function(seat) {
+        return seat.TrangThai;
+      });
     }
   }
 };
@@ -80,19 +102,20 @@ export default {
   box-sizing: border-box;
 }
 html {
-  font-size: 16px;
+  font-size: 18px;
 }
-ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.grid-container {
+  display: grid;
+  align-content: center;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+
+  padding: 10px;
 }
 
-.seats {
+.bookedSeats {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  flex-flow: column wrap;
 }
 </style>
 

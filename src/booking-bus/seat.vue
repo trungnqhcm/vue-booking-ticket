@@ -1,22 +1,35 @@
 <template>
   <div>
-    <button>{{name}}</button>
+    <button
+      class="btn btn-default"
+      :class="{ active: seat.TrangThai }"
+      v-on="seat"
+      @click="bookTicket"
+    >{{ seat.SoGhe }}</button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["name"]
+  props: ["seat"],
+  data() {
+    return {};
+  },
+  methods: {
+    bookTicket() {
+      this.$emit("eventBookTicket", this.seat);
+    }
+  }
 };
 </script>
 
 <style>
-button {
-  width: 32px;
-  height: 32px;
-  align-content: center;
+.btn {
+  margin: 4px;
+  flex: 0 1 auto;
 }
+
 .btn.active {
-  background-color: red;
+  background-color: lightgreen;
 }
 </style>

@@ -7,7 +7,7 @@
     <!-- <Computed /> -->
     <!-- <Directive /> -->
     <!-- <ExampleDirective /> -->
-    <User />
+    <!-- <User /> -->
     <BookingBus />
   </div>
 </template>
@@ -19,7 +19,7 @@
 // import Computed from "./computed";
 // import Directive from "./directive";
 // import ExampleDirective from "./directive/example";
-import User from "./components/user";
+// import User from "./components/user";
 import BookingBus from "./booking-bus";
 
 export default {
@@ -31,7 +31,7 @@ export default {
     //     Computed,
     //     Directive,
     //     ExampleDirective,
-    User,
+    // User,
     BookingBus
   }
 };
